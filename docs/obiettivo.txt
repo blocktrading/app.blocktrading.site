@@ -1,0 +1,11 @@
+Obiettivo: BlockTrading, piattaforma di gestione delle strategie di trading.
+- Integrazione di vari exchange con un'interfaccia semplificata e generica per la comunicazione
+- Editor a blocchi per la creazione di strategie in base a vari indicatori. 
+- Sistema di autenticazione a due fattori. 
+- Dashboard con grafici dell'andamento.
+- Simulazione della strategia con previsione in base ai dati storici e con la possibilità di modifica degli indici per la visualizzazione dei cambianti
+- Salvataggio e gestione delle strategie
+- Logging e consultazione con reportistica
+- Pannello di controllo amministrativo 
+- Framework di sviluppo laravel
+- Database: mongodb

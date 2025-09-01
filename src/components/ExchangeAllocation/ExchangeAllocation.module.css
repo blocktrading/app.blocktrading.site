@@ -1,0 +1,104 @@
+.sectionContainer {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.sectionContainer:hover {
+  border-color: var(--bt-hover-border);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+}
+
+.chartContainer {
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  backdrop-filter: blur(10px);
+}
+
+.tooltipLabel {
+  color: var(--bt-text-primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tooltipValue {
+  color: var(--bt-text-muted);
+  font-size: 12px;
+}
+
+.allocationList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.allocationItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bt-border);
+}
+
+.allocationItem:last-child {
+  border-bottom: none;
+}
+
+.allocationInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.allocationIndicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.allocationDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.allocationName {
+  font-weight: 600;
+  color: var(--bt-text-primary);
+  margin-bottom: 2px;
+}
+
+.allocationPercentage {
+  color: var(--bt-text-muted);
+  font-size: 12px;
+}
+
+.allocationAmount {
+  text-align: right;
+}
+
+.allocationValue {
+  font-weight: 600;
+  color: var(--bt-text-primary);
+}

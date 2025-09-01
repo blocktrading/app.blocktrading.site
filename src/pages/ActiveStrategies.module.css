@@ -1,0 +1,248 @@
+/* ActiveStrategies.module.css */
+
+.activeStrategiesPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pageSubtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--bt-primary);
+  border: 1px solid var(--bt-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btnSecondary:hover {
+  background: var(--bt-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.filtersSection {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.searchBox {
+  position: relative;
+  max-width: 400px;
+}
+
+.searchBox svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--bt-text-muted);
+  z-index: 1;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 1px solid var(--bt-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--bt-card-bg);
+  color: var(--bt-text-primary);
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--bt-hover-border);
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+}
+
+.searchInput::placeholder {
+  color: var(--bt-text-muted);
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filterTab {
+  background: var(--bt-card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--bt-border);
+  color: var(--bt-text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.filterTab:hover {
+  border-color: var(--bt-hover-border);
+  color: var(--bt-primary);
+  transform: translateY(-1px);
+}
+
+.filterTab.active {
+  background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+  border-color: var(--bt-primary);
+  color: white;
+}
+
+.strategiesContainer {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.emptyStateIcon {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyStateIcon svg {
+  color: var(--text-secondary);
+}
+
+.emptyStateTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.emptyStateMessage {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .activeStrategiesPage {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .actionBar {
+    justify-content: center;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .filtersSection {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .filterTabs {
+    justify-content: center;
+  }
+
+  .searchBox {
+    order: -1;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .btnPrimary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .emptyState {
+    padding: 2rem 1rem;
+  }
+}

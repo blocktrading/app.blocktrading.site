@@ -1,0 +1,336 @@
+.loginForm {
+  width: 100%;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.formHeader h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--bt-text-primary);
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--bt-text-primary), var(--bt-text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.formHeader p {
+  color: var(--bt-text-muted);
+  font-size: 16px;
+}
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--bt-error);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bt-text-secondary);
+  margin-bottom: 8px;
+}
+
+.inputGroup {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--bt-text-muted);
+  stroke: currentColor;
+  fill: none;
+  z-index: 2;
+}
+
+.formInput {
+  width: 100%;
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 8px;
+  padding: 16px 20px 16px 48px;
+  color: var(--bt-text-primary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--bt-primary);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+.formInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formInput::placeholder {
+  color: var(--bt-text-muted);
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--bt-text-muted);
+  cursor: pointer;
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.passwordToggle:hover {
+  color: var(--bt-primary);
+  background: rgba(20, 184, 166, 0.1);
+}
+
+.passwordToggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.formOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--bt-text-secondary);
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--bt-primary);
+}
+
+.forgotPassword {
+  color: var(--bt-primary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.forgotPassword:hover {
+  color: var(--bt-secondary);
+  text-decoration: underline;
+}
+
+.submitButton {
+  width: 100%;
+  background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.divider {
+  text-align: center;
+  margin: 32px 0;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bt-border);
+}
+
+.divider span {
+  background: var(--bt-card-bg);
+  color: var(--bt-text-muted);
+  padding: 0 20px;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.socialButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.socialButton {
+  width: 100%;
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  color: var(--bt-text-secondary);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.socialButton:hover {
+  border-color: var(--bt-primary);
+  background: rgba(20, 184, 166, 0.05);
+  transform: translateY(-1px);
+}
+
+.signupPrompt {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.signupPrompt p {
+  color: var(--bt-text-muted);
+  font-size: 15px;
+}
+
+.signupLink {
+  color: var(--bt-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+.demoCredentials {
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.demoCredentials p {
+  color: var(--bt-text-secondary);
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+.demoCredentials p:first-child {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--bt-primary);
+}
+
+@media (max-width: 600px) {
+  .formHeader h1 {
+    font-size: 20px;
+  }
+  
+  .formHeader p {
+    font-size: 14px;
+  }
+  
+  .formInput {
+    padding: 14px 16px 14px 44px;
+  }
+  
+  .submitButton {
+    padding: 14px 20px;
+  }
+  
+  .formOptions {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .socialButtons {
+    gap: 8px;
+    flex-direction: column;
+  }
+  
+  .socialButton {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  
+  .demoCredentials {
+    padding: 12px;
+  }
+}

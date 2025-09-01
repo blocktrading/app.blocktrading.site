@@ -1,0 +1,187 @@
+🏗️ Setup e Architettura
+Stack Tecnologico Raccomandato:
+
+Frontend: React 18 + TypeScript + Vite (più veloce di Create React App)
+UI Framework: CSS Modules + CSS Variables
+State Management: Zustand (più semplice di Redux) + TanStack Query per server state
+Routing: React Router v6
+Grafici: Recharts (che già usi) + D3.js per visualizzazioni complesse
+Forms: React Hook Form + Zod per validation
+Tour Guide: Intro.js o Reactour per i tutorial
+
+Struttura del Progetto:
+src/
+├── components/           # Componenti riusabili
+│   ├── ui/              # shadcn/ui components
+│   ├── charts/          # Componenti grafici
+│   ├── forms/           # Form components
+│   └── layout/          # Header, Sidebar, etc.
+├── pages/               # Pagine principali
+├── hooks/               # Custom hooks
+├── stores/              # Zustand stores
+├── services/            # API calls
+├── types/               # TypeScript types
+├── utils/               # Utility functions
+└── tours/               # Tour configurations
+📱 Architettura Componenti
+Layout Pattern:
+
+AppLayout: Container principale con sidebar + main content
+DashboardLayout: Layout specifico per dashboard
+AuthLayout: Layout per login/register
+Responsive: Sidebar collassabile su mobile
+
+Component Strategy:
+
+Atomic Design: Atoms (Button, Input) → Molecules (SearchBox) → Organisms (MetricCard) → Templates → Pages
+Compound Components: Per componenti complessi come Strategy Builder
+Render Props: Per logica riusabile (drag & drop, connessioni)
+
+🔄 State Management
+Zustand Stores:
+
+authStore: User authentication, permissions
+strategyStore: Strategies CRUD, active strategies
+backtestStore: Backtest configurations e results
+uiStore: Theme, sidebar state, modals, tour progress
+marketStore: Real-time market data, websocket connections
+
+Server State (TanStack Query):
+
+Cache management automatico per API calls
+Background refetching per dati real-time
+Optimistic updates per UX migliore
+Error handling centralizzato
+
+🎯 Tour System Implementation
+Tour Strategy:
+
+Multi-Step Tours per ogni sezione principale:
+
+Welcome Tour (primo accesso)
+Dashboard Tour
+Strategy Builder Tour
+Backtesting Tour
+
+
+Tour Context/Provider:
+
+Track tour progress per user
+Skip/restart functionality
+Conditional tours basati su user actions
+
+
+Tour Triggers:
+
+Primo accesso all'app
+Prima visita a una sezione
+Dopo completamento di actions specifiche
+Manual restart da settings
+
+
+
+Tour UX Best Practices:
+
+Progressive Disclosure: Non overwhelmare con troppo info
+Contextual Help: Mostrare tour quando relevant
+Interactive Elements: Permettere interazione durante il tour
+Progress Indicators: Mostrare step corrente (2/5)
+Smart Defaults: Auto-skip per utenti esperti
+
+🔧 Development Workflow
+Feature Development:
+
+Component-First: Sviluppa UI components in isolation (Storybook)
+API-First: Mock API endpoints con MSW durante development
+Type-Safe: Definisci types prima di implementation
+Test-Driven: Unit tests per logic, integration tests per flows
+
+Code Organization:
+
+Custom Hooks per logica riusabile (useLocalStorage, useWebSocket)
+Higher-Order Components per authentication/authorization
+Context Providers per theme, tour state
+Error Boundaries per graceful error handling
+
+📊 Strategy Builder Specifics
+Drag & Drop Architecture:
+
+React DnD o @dnd-kit per drag & drop
+Canvas Management: State per nodes/connections
+Undo/Redo: Implementare history stack
+Real-time Collaboration: Websockets per multi-user editing
+
+Visual Flow Builder:
+
+Node System: Ogni block è un React component
+Connection System: SVG paths tra nodes
+Property Panel: Dynamic forms basati su node type
+Validation: Real-time validation del flow
+
+🚀 Performance Optimization
+React Patterns:
+
+Code Splitting: Lazy loading per pages/components pesanti
+Memoization: React.memo, useMemo, useCallback strategici
+Virtual Scrolling: Per liste lunghe (trade logs)
+Debouncing: Per search e API calls
+
+Bundle Optimization:
+
+Tree Shaking: Import specifici (import { Button } from './ui')
+Dynamic Imports: Chart libraries solo quando needed
+Service Workers: Caching per offline functionality
+
+🧪 Testing Strategy
+Testing Pyramid:
+
+Unit Tests: Jest + React Testing Library per components
+Integration Tests: Testing completo dei flows
+E2E Tests: Playwright per user journeys critici
+Visual Testing: Chromatic per regression testing
+
+Tour Testing:
+
+Tour Flow Tests: Verificare che i tour funzionino end-to-end
+Accessibility Tests: Screen reader compatibility
+Mobile Tests: Touch interactions sui tour
+
+🔐 Security & Auth
+Authentication:
+
+JWT Tokens: Access + refresh token pattern
+Route Protection: Private routes con authentication check
+Role-Based Access: Different UI per user roles
+API Security: Request/response interceptors
+
+📈 Real-time Features
+WebSocket Integration:
+
+Market Data: Live price updates
+Strategy Status: Real-time strategy execution updates
+Notifications: Live alerts e trade notifications
+Collaboration: Multi-user strategy editing
+
+🎨 Theme System
+Design System:
+
+CSS Variables: Per dynamic theming
+Component Variants: Light/dark mode support
+Consistent Spacing: Design tokens per spacing/colors
+Responsive Design: Mobile-first approach
+
+📱 Progressive Web App
+PWA Features:
+
+Offline Capability: Critical features funzionano offline
+Push Notifications: Trading alerts e price alerts
+Install Prompt: App installabile su mobile/desktop
+Background Sync: Sync data quando torna online
+
+🔄 Migration Strategy
+Da HTML a React:
+
+Component Extraction: Estrai componenti dai tuoi HTML
+State Identification: Identifica quale stato serve dove
+API Integration: Sostituisci mock data con real APIs
+Tour Integration: Aggiungi tour steps ai componenti esistenti

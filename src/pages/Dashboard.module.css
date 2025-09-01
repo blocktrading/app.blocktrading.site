@@ -1,0 +1,63 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.secondaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.timeSelector {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: var(--bt-text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timeSelector:hover {
+  border-color: var(--bt-primary);
+  color: var(--bt-primary);
+}
+
+@media (max-width: 1200px) {
+  .metricsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .secondaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .metricsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .secondaryGrid {
+    grid-template-columns: 1fr;
+  }
+}

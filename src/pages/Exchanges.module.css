@@ -1,0 +1,713 @@
+/* Exchanges.module.css */
+
+.exchangesPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tabSelector {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  gap: 2px;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  color: var(--bt-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  background: var(--bt-hover-bg);
+  color: var(--bt-text-primary);
+}
+
+.tabButton.active {
+  background: var(--bt-primary);
+  color: white;
+}
+
+.addButton,
+.addApiKeyButton {
+  background: var(--bt-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.addButton:hover,
+.addApiKeyButton:hover {
+  background: var(--bt-primary-dark);
+  transform: translateY(-1px);
+}
+
+.addIcon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Exchanges Section */
+.exchangesSection {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.refreshButton {
+  background: none;
+  border: 1px solid var(--bt-border);
+  color: var(--bt-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.refreshButton:hover {
+  border-color: var(--bt-primary);
+  color: var(--bt-primary);
+}
+
+.testAllButton {
+  background: var(--bt-success);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.testAllButton:hover {
+  background: var(--bt-success-dark);
+  transform: translateY(-1px);
+}
+
+.configureAllButton {
+  background: var(--bt-warning);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.configureAllButton:hover {
+  background: var(--bt-warning-dark);
+  transform: translateY(-1px);
+}
+
+/* Exchanges Table */
+.exchangesTable {
+  width: 100%;
+  background: var(--bt-bg);
+  border: 1px solid var(--bt-border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1.5fr 0.8fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bt-card-bg);
+  border-bottom: 1px solid var(--bt-border);
+}
+
+.headerCell {
+  color: var(--bt-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1.5fr 0.8fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--bt-border-light);
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.tableRow:hover {
+  background: var(--bt-hover-bg);
+}
+
+.tableRow.connected {
+  border-left: 3px solid var(--bt-success);
+  padding-left: 1.25rem;
+}
+
+.tableRow.disconnected {
+  border-left: 3px solid var(--bt-error);
+  opacity: 0.7;
+  padding-left: 1.25rem;
+}
+
+.tableRow.pending {
+  border-left: 3px solid var(--bt-warning);
+  padding-left: 1.25rem;
+}
+
+/* Table Cells */
+.exchangeNameCell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exchangeLogo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.exchangeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exchangeName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+  margin: 0;
+}
+
+.tradingPairs {
+  font-size: 11px;
+  color: var(--bt-text-secondary);
+}
+
+.statusCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statusWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusDot.success {
+  background: var(--bt-success);
+}
+
+.statusDot.warning {
+  background: var(--bt-warning);
+}
+
+.statusDot.error {
+  background: var(--bt-error);
+}
+
+.statusDot.neutral {
+  background: var(--bt-text-secondary);
+}
+
+.statusText {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--bt-text-primary);
+  text-transform: capitalize;
+}
+
+.apiStatus {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.apiStatus.success {
+  color: var(--bt-success);
+}
+
+.apiStatus.warning {
+  color: var(--bt-warning);
+}
+
+.apiStatus.error {
+  color: var(--bt-error);
+}
+
+.balanceCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.balanceValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+}
+
+.balancePercentage {
+  font-size: 11px;
+  color: var(--bt-text-secondary);
+}
+
+.allocationCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.allocationBar {
+  width: 100%;
+  height: 4px;
+  background: var(--bt-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.allocationFill {
+  height: 100%;
+  background: var(--bt-primary);
+  transition: width 0.3s ease;
+}
+
+.allocationText {
+  font-size: 11px;
+  color: var(--bt-text-secondary);
+  text-align: center;
+}
+
+.volumeCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.volumeValue {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bt-text-primary);
+}
+
+.feesInfo {
+  font-size: 10px;
+  color: var(--bt-text-secondary);
+}
+
+.latencyCell {
+  text-align: center;
+}
+
+.latencyValue {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.latencyValue.good {
+  background: var(--bt-success-light);
+  color: var(--bt-success);
+}
+
+.latencyValue.warning {
+  background: var(--bt-warning-light);
+  color: var(--bt-warning);
+}
+
+.latencyValue.poor {
+  background: var(--bt-error-light);
+  color: var(--bt-error);
+}
+
+.latencyValue.na {
+  color: var(--bt-text-secondary);
+  background: none;
+}
+
+.syncCell {
+  text-align: center;
+}
+
+.syncTime {
+  font-size: 11px;
+  color: var(--bt-text-secondary);
+}
+
+/* API Keys Section */
+.apiKeysSection {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.apiKeysTable {
+  width: 100%;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 2fr 1fr 1fr 0.8fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--bt-border);
+  margin-bottom: 0.5rem;
+}
+
+.headerCell {
+  color: var(--bt-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 2fr 1fr 1fr 0.8fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--bt-border-light);
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.tableRow:hover {
+  background: var(--bt-hover-bg);
+  border-radius: 8px;
+  margin: 0 -0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.exchangeCell,
+.keyNameCell,
+.dateCell {
+  font-size: 14px;
+  color: var(--bt-text-primary);
+}
+
+.permissionsCell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.permissionTag {
+  background: var(--bt-primary-light);
+  color: var(--bt-primary);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.statusCell {
+  display: flex;
+}
+
+.statusBadge {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.statusBadge.success {
+  background: var(--bt-success-light);
+  color: var(--bt-success);
+}
+
+.statusBadge.warning {
+  background: var(--bt-warning-light);
+  color: var(--bt-warning);
+}
+
+.statusBadge.error {
+  background: var(--bt-error-light);
+  color: var(--bt-error);
+}
+
+.actionsCell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editButton,
+.deleteButton {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editButton {
+  background: var(--bt-primary-light);
+  color: var(--bt-primary);
+}
+
+.editButton:hover {
+  background: var(--bt-primary);
+  color: white;
+}
+
+.deleteButton {
+  background: var(--bt-error-light);
+  color: var(--bt-error);
+}
+
+.deleteButton:hover {
+  background: var(--bt-error);
+  color: white;
+}
+
+/* Settings Section */
+.settingsSection {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.settingsCard {
+  background: var(--bt-bg);
+  border: 1px solid var(--bt-border-light);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.settingsCard h3 {
+  margin: 0 0 1rem 0;
+  color: var(--bt-text-primary);
+  font-size: 1.125rem;
+}
+
+.settingItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.settingLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--bt-text-primary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.settingLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--bt-primary);
+}
+
+.settingSelect {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  color: var(--bt-text-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal h3 {
+  margin: 0 0 1rem 0;
+  color: var(--bt-text-primary);
+}
+
+.modal button {
+  background: var(--bt-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1.2fr 1.2fr 0.8fr 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .latencyCell,
+  .syncCell {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .exchangesPage {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .actionBar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .headerActions {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .headerActions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .balanceCell,
+  .volumeCell {
+    display: none;
+  }
+
+  .exchangeNameCell {
+    gap: 0.5rem;
+  }
+
+  .exchangeLogo {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .statusCell {
+    gap: 2px;
+  }
+
+  .allocationCell {
+    gap: 2px;
+  }
+}

@@ -1,0 +1,77 @@
+.chartContainer {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.chartContainer:hover {
+  border-color: var(--bt-hover-border);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+  margin-bottom: 12px;
+}
+
+.chartLegend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--bt-text-secondary);
+}
+
+.legendColor {
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.legendStrategy { 
+  background: #14B8A6; 
+}
+
+.legendHodl { 
+  background: #F59E0B; 
+}
+
+.chartArea {
+  height: 300px;
+}
+
+.tooltip {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  backdrop-filter: blur(10px);
+}
+
+.tooltipLabel {
+  color: var(--bt-text-primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tooltipValue {
+  font-size: 12px;
+  margin: 2px 0;
+}

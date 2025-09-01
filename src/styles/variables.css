@@ -1,0 +1,16 @@
+:root {
+  --bt-primary: #14B8A6;
+  --bt-secondary: #06B6D4;
+  --bt-accent: #0EA5E9;
+  --bt-dark: #0a0f1c;
+  --bt-card-bg: rgba(31, 41, 55, 0.4);
+  --bt-card-bg-solid: rgba(31, 41, 55, 0.94);
+  --bt-border: rgba(75, 85, 99, 0.4);
+  --bt-hover-border: rgba(20, 184, 166, 0.6);
+  --bt-text-primary: #FFFFFF;
+  --bt-text-secondary: #E5E7EB;
+  --bt-text-muted: #9CA3AF;
+  --bt-success: #10B981;
+  --bt-warning: #F59E0B;
+  --bt-error: #EF4444;
+}

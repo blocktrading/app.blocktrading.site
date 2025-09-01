@@ -1,0 +1,119 @@
+.strategiesSection {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.tableContainer {
+  overflow: visible;
+}
+
+.sectionHeader {
+  padding: 24px;
+  border-bottom: 1px solid var(--bt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--bt-text-primary);
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+}
+
+.strategiesTable {
+  width: 100%;
+  border-collapse: collapse;
+  height: auto;
+}
+
+.strategiesTable th {
+  text-align: left;
+  padding: 16px 24px;
+  color: var(--bt-text-muted);
+  font-weight: 500;
+  position: static;
+  background: transparent;
+  border-bottom: 1px solid var(--bt-border);
+  z-index: auto;
+  font-size: 14px;
+}
+
+.strategiesTable td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--bt-border);
+}
+
+.strategiesTable tr:hover {
+  background: rgba(20, 184, 166, 0.05);
+}
+
+.strategyName {
+  font-weight: 500;
+  color: var(--bt-text-primary);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.statusActive {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--bt-success);
+}
+
+.statusPaused {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--bt-warning);
+}
+
+.pnlPositive { 
+  color: var(--bt-success); 
+}
+
+.pnlNegative { 
+  color: var(--bt-error); 
+}
+
+.exchangeTag {
+  background: var(--bt-card-bg);
+  border: 1px solid var(--bt-border);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--bt-text-muted);
+}

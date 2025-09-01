@@ -1,0 +1,203 @@
+/* Tutorial Overlay */
+.tutorialOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.tutorialModal {
+  background: var(--bt-card-bg-solid);
+  border: 2px solid var(--bt-primary);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+  from {
+    transform: scale(0.9) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.tutorialHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--bt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(20, 184, 166, 0.05));
+}
+
+.tutorialHeader h3 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--bt-text-primary);
+  font-weight: 600;
+}
+
+.closeButton {
+  background: none;
+  border: 1px solid var(--bt-border);
+  color: var(--bt-text-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.closeButton:hover {
+  border-color: var(--bt-primary);
+  color: var(--bt-primary);
+  background: rgba(20, 184, 166, 0.1);
+}
+
+/* Content */
+.tutorialContent {
+  padding: 24px;
+}
+
+.stepContent p {
+  color: var(--bt-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+}
+
+.stepContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* Step Indicator */
+.stepIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.stepDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bt-border);
+  transition: all 0.3s ease;
+}
+
+.stepDot.active {
+  background: var(--bt-primary);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+}
+
+.stepDot.completed {
+  background: var(--bt-success);
+}
+
+/* Actions */
+.tutorialActions {
+  padding: 20px 24px;
+  border-top: 1px solid var(--bt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20, 184, 166, 0.02);
+}
+
+.prevButton,
+.nextButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--bt-border);
+}
+
+.prevButton {
+  background: var(--bt-card-bg);
+  color: var(--bt-text-muted);
+}
+
+.prevButton:hover:not(:disabled) {
+  border-color: var(--bt-primary);
+  color: var(--bt-primary);
+  background: rgba(20, 184, 166, 0.05);
+}
+
+.prevButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextButton {
+  background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+  color: white;
+  border-color: var(--bt-primary);
+}
+
+.nextButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.stepCounter {
+  font-size: 14px;
+  color: var(--bt-text-muted);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tutorialModal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .tutorialHeader {
+    padding: 16px 20px;
+  }
+  
+  .tutorialHeader h3 {
+    font-size: 18px;
+  }
+  
+  .tutorialContent {
+    padding: 20px;
+  }
+  
+  .stepContent p {
+    font-size: 14px;
+  }
+  
+  .tutorialActions {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .prevButton,
+  .nextButton {
+    width: 100%;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockTrading - Strategy Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0f1c;
+            color: #fff;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        /* CSS Variables per coerenza con la landing */
+        :root {
+            --bt-primary: #14B8A6;
+            --bt-secondary: #06B6D4;
+            --bt-accent: #0EA5E9;
+            --bt-dark: #0a0f1c;
+            --bt-card-bg: rgba(31, 41, 55, 0.4);
+            --bt-border: rgba(75, 85, 99, 0.4);
+            --bt-hover-border: rgba(20, 184, 166, 0.6);
+            --bt-text-primary: #FFFFFF;
+            --bt-text-secondary: #E5E7EB;
+            --bt-text-muted: #9CA3AF;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bt-card-bg);
+            border-bottom: 1px solid var(--bt-border);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            height: 60px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid var(--bt-border);
+            color: var(--bt-text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            border-color: var(--bt-primary);
+            color: var(--bt-primary);
+        }
+
+        .strategy-info h1 {
+            font-size: 18px;
+            background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .strategy-info p {
+            color: var(--bt-text-muted);
+            font-size: 12px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--bt-border);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .btn-secondary {
+            background: var(--bt-card-bg);
+            color: var(--bt-text-muted);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--bt-primary);
+            color: var(--bt-primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--bt-primary), var(--bt-secondary));
+            color: white;
+            border-color: var(--bt-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        }
+
+        /* Main Layout */
+        .builder-container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* Toolbox Sidebar */
+        .toolbox {
+            width: 280px;
+            background: var(--bt-card-bg);
+            border-right: 1px solid var(--bt-border);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .toolbox-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--bt-border);
+        }
+
+        .toolbox-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--bt-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .toolbox-subtitle {
+            font-size: 12px;
+            color: var(--bt-text-muted);
+        }
+
+        .toolbox-section {
+            padding: 16px;
+            border-bottom: 1px solid var(--bt-border);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bt-text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .block-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background: rgba(20, 184, 166, 0.05);
+            border: 1px solid var(--bt-border);
+            border-radius: 8px;
+            cursor: grab;
+            transition: all 0.3s ease;
+        }
+
+        .block-item:hover {
+            border-color: var(--bt-hover-border);
+            background: rgba(20, 184, 166, 0.1);
+            transform: translateX(2px);
+        }
+
+        .block-item:active {
+            cursor: grabbing;
+        }
+
+        .block-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid var(--bt-hover-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bt-primary);
+        }
+
+        .block-info {
+            flex: 1;
+        }
+
+        .block-name {
+            font-weight: 500;
+            color: var(--bt-text-primary);
+            margin-bottom: 2px;
+            font-size: 13px;
+        }
+
+        .block-description {
+            color: var(--bt-text-muted);
+            font-size: 11px;
+        }
+
+        /* Canvas Area */
+        .canvas-container {
+            flex: 1;
+            background: var(--bt-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: var(--bt-card-bg);
+            border-bottom: 1px solid var(--bt-border);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .canvas-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            background: var(--bt-card-bg);
+            border: 1px solid var(--bt-border);
+            border-radius: 6px;
+        }
+
+        .zoom-btn {
+            background: none;
+            border: none;
+            color: var(--bt-text-muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .zoom-btn:hover {
+            color: var(--bt-primary);
+        }
+
+        .zoom-level {
+            color: var(--bt-text-secondary);
+            font-size: 12px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .canvas {
+            width: 100%;
+            height: calc(100% - 50px);
+            margin-top: 50px;
+            background-image: 
+                radial-gradient(circle, rgba(20, 184, 166, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+            overflow: auto;
+        }
+
+        /* Strategy Blocks on Canvas */
+        .strategy-block {
+            position: absolute;
+            background: var(--bt-card-bg);
+            border: 1px solid var(--bt-border);
+            border-radius: 8px;
+            padding: 16px;
+            min-width: 180px;
+            backdrop-filter: blur(10px);
+            cursor: move;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .strategy-block:hover {
+            border-color: var(--bt-hover-border);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .strategy-block.selected {
+            border-color: var(--bt-primary);
+            box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .block-type-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--bt-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .block-title {
+            font-weight: 600;
+            color: var(--bt-text-primary);
+            font-size: 13px;
+        }
+
+        .block-content {
+            color: var(--bt-text-secondary);
+            font-size: 12px;
+        }
+
+        .connection-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--bt-primary);
+            border: 2px solid var(--bt-dark);
+            border-radius: 50%;
+            cursor: crosshair;
+        }
+
+        .connection-point.input {
+            top: 50%;
+            left: -6px;
+            transform: translateY(-50%);
+        }
+
+        .connection-point.output {
+            top: 50%;
+            right: -6px;
+            transform: translateY(-50%);
+        }
+
+        /* Connections */
+        .connection-line {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line path {
+            stroke: var(--bt-primary);
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.7;
+        }
+
+        /* Properties Panel */
+        .properties-panel {
+            width: 320px;
+            background: var(--bt-card-bg);
+            border-left: 1px solid var(--bt-border);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .properties-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--bt-border);
+        }
+
+        .properties-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--bt-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .properties-subtitle {
+            font-size: 12px;
+            color: var(--bt-text-muted);
+        }
+
+        .properties-content {
+            padding: 16px;
+        }
+
+        .property-group {
+            margin-bottom: 24px;
+        }
+
+        .property-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--bt-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .property-input {
+            width: 100%;
+            background: var(--bt-card-bg);
+            border: 1px solid var(--bt-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--bt-text-primary);
+            font-size: 13px;
+            transition: border-color 0.3s ease;
+        }
+
+        .property-input:focus {
+            outline: none;
+            border-color: var(--bt-primary);
+        }
+
+        .property-select {
+            width: 100%;
+            background: var(--bt-card-bg);
+            border: 1px solid var(--bt-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--bt-text-primary);
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .property-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .property-checkbox input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--bt-primary);
+        }
+
+        /* Minimap */
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 120px;
+            background: var(--bt-card-bg);
+            border: 1px solid var(--bt-border);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .minimap-header {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--bt-border);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--bt-text-secondary);
+        }
+
+        .minimap-canvas {
+            width: 100%;
+            height: calc(100% - 32px);
+            background: rgba(20, 184, 166, 0.05);
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .toolbox {
+                width: 240px;
+            }
+            
+            .properties-panel {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toolbox,
+            .properties-panel {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: 20;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .properties-panel {
+                right: 0;
+                transform: translateX(100%);
+            }
+            
+            .toolbox.open,
+            .properties-panel.open {
+                transform: translateX(0);
+            }
+        }
+
+        /* Animation for dragging */
+        .dragging {
+            opacity: 0.7;
+            transform: rotate(3deg);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="back-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="strategy-info">
+                <h1>RSI Momentum Strategy</h1>
+                <p>Last modified: 2 hours ago • Autosaved</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+                Test
+            </button>
+            <button class="btn btn-secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M8 17l4 4 4-4m-4-5v9M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/>
+                </svg>
+                Backtest
+            </button>
+            <button class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                    <polyline points="17,21 17,13 7,13 7,21"/>
+                    <polyline points="7,3 7,8 15,8"/>
+                </svg>
+                Save
+            </button>
+            <button class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <polygon points="5,3 19,12 5,21"/>
+                </svg>
+                Deploy
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Builder Container -->
+    <div class="builder-container">
+        <!-- Toolbox Sidebar -->
+        <div class="toolbox">
+            <div class="toolbox-header">
+                <h2 class="toolbox-title">Components</h2>
+                <p class="toolbox-subtitle">Drag elements to create your strategy</p>
+            </div>
+
+            <!-- Indicators Section -->
+            <div class="toolbox-section">
+                <h3 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <path d="M3 3v18h18M7 16l4-4 4 4 5-5"/>
+                    </svg>
+                    Indicators
+                </h3>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">RSI</div>
+                        <div class="block-description">Relative Strength Index</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M3 3v18h18M7 16l4-4 4 4 5-5"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">MACD</div>
+                        <div class="block-description">Moving Average Convergence</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Bollinger Bands</div>
+                        <div class="block-description">Price bands indicator</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Moving Average</div>
+                        <div class="block-description">SMA, EMA, WMA</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditions Section -->
+            <div class="toolbox-section">
+                <h3 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+                    </svg>
+                    Conditions
+                </h3>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M7 17l9.2-9.2M17 17H7V7"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Greater Than</div>
+                        <div class="block-description">Value > threshold</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M17 7L7 17M7 7h10v10"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Less Than</div>
+                        <div class="block-description">Value < threshold</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M8 12h8M12 8l4 4-4 4"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Crossover</div>
+                        <div class="block-description">Signal crosses another</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">AND / OR</div>
+                        <div class="block-description">Logical operators</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="toolbox-section">
+                <h3 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/>
+                    </svg>
+                    Actions
+                </h3>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M3 3v18h18M7 16l4-4 4 4 5-5"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Buy Order</div>
+                        <div class="block-description">Execute purchase</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M3 21v-18h18M7 8l4 4-4 4-5-5"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Sell Order</div>
+                        <div class="block-description">Execute sale</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <circle cx="12" cy="16" r="1"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Stop Loss</div>
+                        <div class="block-description">Risk management</div>
+                    </div>
+                </div>
+                <div class="block-item" draggable="true">
+                    <div class="block-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="block-info">
+                        <div class="block-name">Take Profit</div>
+                        <div class="block-description">Secure gains</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="canvas-container">
+            <div class="canvas-header">
+                <div class="canvas-controls">
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" onclick="zoomOut()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M8 11h6"/>
+                            </svg>
+                        </button>
+                        <span class="zoom-level">100%</span>
+                        <button class="zoom-btn" onclick="zoomIn()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M8 11h6M11 8v6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="btn btn-secondary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <polyline points="1,4 1,10 7,10"/>
+                            <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="canvas" id="strategy-canvas">
+                <!-- Example Strategy Blocks -->
+                <div class="strategy-block" style="top: 100px; left: 200px;">
+                    <div class="connection-point input"></div>
+                    <div class="connection-point output"></div>
+                    <div class="block-header">
+                        <div class="block-type-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <div class="block-title">Start</div>
+                    </div>
+                    <div class="block-content">Strategy entry point</div>
+                </div>
+
+                <div class="strategy-block" style="top: 100px; left: 450px;">
+                    <div class="connection-point input"></div>
+                    <div class="connection-point output"></div>
+                    <div class="block-header">
+                        <div class="block-type-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M18 20V10M12 20V4M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <div class="block-title">RSI Indicator</div>
+                    </div>
+                    <div class="block-content">Period: 14<br>Threshold: 30/70</div>
+                </div>
+
+                <div class="strategy-block" style="top: 280px; left: 450px;">
+                    <div class="connection-point input"></div>
+                    <div class="connection-point output"></div>
+                    <div class="block-header">
+                        <div class="block-type-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div class="block-title">Condition: RSI < 30</div>
+                    </div>
+                    <div class="block-content">Oversold condition</div>
+                </div>
+
+                <div class="strategy-block" style="top: 280px; left: 700px;">
+                    <div class="connection-point input"></div>
+                    <div class="connection-point output"></div>
+                    <div class="block-header">
+                        <div class="block-type-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M3 3v18h18M7 16l4-4 4 4 5-5"/>
+                            </svg>
+                        </div>
+                        <div class="block-title">Buy Order</div>
+                    </div>
+                    <div class="block-content">Amount: 30% Capital<br>Type: Market</div>
+                </div>
+
+                <div class="strategy-block" style="top: 450px; left: 700px;">
+                    <div class="connection-point input"></div>
+                    <div class="connection-point output"></div>
+                    <div class="block-header">
+                        <div class="block-type-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <circle cx="12" cy="16" r="1"/>
+                            </svg>
+                        </div>
+                        <div class="block-title">Stop Loss</div>
+                    </div>
+                    <div class="block-content">Loss: -5%</div>
+                </div>
+
+                <!-- Connection Lines -->
+                <svg class="connection-line" style="top: 0; left: 0; width: 100%; height: 100%;">
+                    <path d="M 392 134 Q 420 134 420 134 Q 450 134 450 134" stroke="#14B8A6" stroke-width="2" fill="none"/>
+                    <path d="M 542 190 Q 570 190 570 240 Q 570 290 450 314" stroke="#14B8A6" stroke-width="2" fill="none"/>
+                    <path d="M 642 314 Q 670 314 670 314 Q 700 314 700 314" stroke="#14B8A6" stroke-width="2" fill="none"/>
+                    <path d="M 792 364 Q 820 364 820 400 Q 820 450 700 484" stroke="#14B8A6" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+
+            <!-- Minimap -->
+            <div class="minimap">
+                <div class="minimap-header">Strategy Overview</div>
+                <div class="minimap-canvas">
+                    <div style="position: absolute; top: 20px; left: 40px; width: 20px; height: 20px; background: var(--bt-primary); border-radius: 3px; opacity: 0.8;"></div>
+                    <div style="position: absolute; top: 20px; left: 90px; width: 20px; height: 20px; background: var(--bt-primary); border-radius: 3px; opacity: 0.8;"></div>
+                    <div style="position: absolute; top: 50px; left: 90px; width: 20px; height: 20px; background: var(--bt-primary); border-radius: 3px; opacity: 0.8;"></div>
+                    <div style="position: absolute; top: 50px; left: 140px; width: 20px; height: 20px; background: var(--bt-primary); border-radius: 3px; opacity: 0.8;"></div>
+                    <div style="position: absolute; top: 80px; left: 140px; width: 20px; height: 20px; background: var(--bt-primary); border-radius: 3px; opacity: 0.8;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties Panel -->
+        <div class="properties-panel">
+            <div class="properties-header">
+                <h2 class="properties-title">Properties</h2>
+                <p class="properties-subtitle">Configure selected block</p>
+            </div>
+            <div class="properties-content">
+                <div class="property-group">
+                    <label class="property-label">Block Name</label>
+                    <input type="text" class="property-input" value="Buy Order" placeholder="Enter block name">
+                </div>
+
+                <div class="property-group">
+                    <label class="property-label">Asset to Buy</label>
+                    <select class="property-select">
+                        <option>Ethereum (ETH)</option>
+                        <option>Bitcoin (BTC)</option>
+                        <option>Solana (SOL)</option>
+                        <option>Cardano (ADA)</option>
+                    </select>
+                </div>
+
+                <div class="property-group">
+                    <label class="property-label">Amount (%)</label>
+                    <input type="number" class="property-input" value="30" min="1" max="100">
+                </div>
+
+                <div class="property-group">
+                    <label class="property-label">Order Type</label>
+                    <select class="property-select">
+                        <option>Market</option>
+                        <option>Limit</option>
+                        <option>Stop</option>
+                    </select>
+                </div>
+
+                <div class="property-group">
+                    <label class="property-label">Advanced Options</label>
+                    <div class="property-checkbox">
+                        <input type="checkbox" id="enable-slippage">
+                        <label for="enable-slippage">Enable slippage protection</label>
+                    </div>
+                    <div class="property-checkbox">
+                        <input type="checkbox" id="partial-fills" checked>
+                        <label for="partial-fills">Allow partial fills</label>
+                    </div>
+                    <div class="property-checkbox">
+                        <input type="checkbox" id="post-only">
+                        <label for="post-only">Post-only orders</label>
+                    </div>
+                </div>
+
+                <div class="property-group">
+                    <label class="property-label">Priority</label>
+                    <select class="property-select">
+                        <option>Normal</option>
+                        <option>High</option>
+                        <option>Urgent</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+                    </svg>
+                    Apply Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let zoomLevel = 100;
+        let selectedBlock = null;
+        let isDragging = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        // Zoom functionality
+        function zoomIn() {
+            if (zoomLevel < 200) {
+                zoomLevel += 10;
+                updateZoom();
+            }
+        }
+
+        function zoomOut() {
+            if (zoomLevel > 50) {
+                zoomLevel -= 10;
+                updateZoom();
+            }
+        }
+
+        function updateZoom() {
+            document.querySelector('.zoom-level').textContent = zoomLevel + '%';
+            document.querySelector('.canvas').style.transform = `scale(${zoomLevel / 100})`;
+        }
+
+        // Block selection
+        document.querySelectorAll('.strategy-block').forEach(block => {
+            block.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Remove previous selection
+                document.querySelectorAll('.strategy-block').forEach(b => b.classList.remove('selected'));
+                
+                // Select current block
+                this.classList.add('selected');
+                selectedBlock = this;
+                
+                // Update properties panel based on block type
+                updatePropertiesPanel(this);
+            });
+
+            // Make blocks draggable
+            block.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('connection-point')) return;
+                
+                isDragging = true;
+                selectedBlock = this;
+                
+                const rect = this.getBoundingClientRect();
+                const canvasRect = document.querySelector('.canvas').getBoundingClientRect();
+                
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+                
+                this.style.cursor = 'grabbing';
+                document.body.style.userSelect = 'none';
+            });
+        });
+
+        // Global mouse events for dragging
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging && selectedBlock) {
+                const canvasRect = document.querySelector('.canvas').getBoundingClientRect();
+                const x = e.clientX - canvasRect.left - dragOffsetX;
+                const y = e.clientY - canvasRect.top - dragOffsetY;
+                
+                selectedBlock.style.left = Math.max(0, x) + 'px';
+                selectedBlock.style.top = Math.max(0, y) + 'px';
+                
+                // Update connections (simplified)
+                updateConnections();
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                if (selectedBlock) {
+                    selectedBlock.style.cursor = 'move';
+                }
+                document.body.style.userSelect = '';
+            }
+        });
+
+        // Canvas click to deselect
+        document.querySelector('.canvas').addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.querySelectorAll('.strategy-block').forEach(b => b.classList.remove('selected'));
+                selectedBlock = null;
+            }
+        });
+
+        // Drag and drop from toolbox
+        document.querySelectorAll('.block-item').forEach(item => {
+            item.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', this.querySelector('.block-name').textContent);
+                this.classList.add('dragging');
+            });
+            
+            item.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+            });
+        });
+
+        document.querySelector('.canvas').addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        document.querySelector('.canvas').addEventListener('drop', function(e) {
+            e.preventDefault();
+            const blockType = e.dataTransfer.getData('text/plain');
+            
+            // Create new block at drop position
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            createNewBlock(blockType, x, y);
+        });
+
+        function createNewBlock(type, x, y) {
+            const newBlock = document.createElement('div');
+            newBlock.className = 'strategy-block';
+            newBlock.style.left = x + 'px';
+            newBlock.style.top = y + 'px';
+            
+            newBlock.innerHTML = `
+                <div class="connection-point input"></div>
+                <div class="connection-point output"></div>
+                <div class="block-header">
+                    <div class="block-type-icon">
+                        <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="block-title">${type}</div>
+                </div>
+                <div class="block-content">Configure this block</div>
+            `;
+            
+            document.querySelector('.canvas').appendChild(newBlock);
+            
+            // Add event listeners to new block
+            newBlock.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.querySelectorAll('.strategy-block').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedBlock = this;
+                updatePropertiesPanel(this);
+            });
+        }
+
+        function updatePropertiesPanel(block) {
+            // This would update the properties panel based on the selected block
+            console.log('Updating properties panel for:', block.querySelector('.block-title').textContent);
+        }
+
+        function updateConnections() {
+            // Simplified connection update - in a real implementation, 
+            // this would recalculate all connection paths
+            console.log('Updating connections...');
+        }
+
+        // Back button functionality
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            // Navigate back to dashboard
+            window.history.back();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Delete' && selectedBlock) {
+                selectedBlock.remove();
+                selectedBlock = null;
+            }
+            
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                console.log('Saving strategy...');
+                // Save functionality
+            }
+            
+            if (e.ctrlKey && e.key === 'z') {
+                e.preventDefault();
+                console.log('Undo...');
+                // Undo functionality
+            }
+        });
+
+        // Auto-save simulation
+        setInterval(() => {
+            console.log('Auto-saving strategy...');
+            document.querySelector('.strategy-info p').textContent = 'Last modified: Just now • Autosaved';
+        }, 30000);
+    </script>
+</body>
+</html>
