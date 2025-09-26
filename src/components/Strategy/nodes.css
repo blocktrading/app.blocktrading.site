@@ -1,0 +1,212 @@
+/* Custom Node Styles for Strategy Builder */
+
+/* Base node styling */
+.rete-node {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.rete-node:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.rete-node:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--node-accent-color, #666);
+  z-index: 1;
+}
+
+/* Node title styling */
+.rete-node .title {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: white !important;
+  padding: 12px 16px 8px !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.rete-node .title:before {
+  content: attr(data-icon);
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+}
+
+/* Category-specific styling */
+.rete-node[data-category="indicators"] {
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%) !important;
+  border: 2px solid #60A5FA !important;
+  --node-accent-color: #60A5FA;
+}
+
+.rete-node[data-category="signals"] {
+  background: linear-gradient(135deg, #10B981 0%, #047857 100%) !important;
+  border: 2px solid #34D399 !important;
+  --node-accent-color: #34D399;
+}
+
+.rete-node[data-category="position"] {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+  border: 2px solid #FBBF24 !important;
+  --node-accent-color: #FBBF24;
+}
+
+.rete-node[data-category="logic"] {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%) !important;
+  border: 2px solid #A78BFA !important;
+  --node-accent-color: #A78BFA;
+}
+
+.rete-node[data-category="data"] {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+  border: 2px solid #F87171 !important;
+  --node-accent-color: #F87171;
+}
+
+/* Input/Output styling */
+.rete-input, .rete-output {
+  margin: 8px 16px !important;
+}
+
+.rete-input-title, .rete-output-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+}
+
+/* Socket styling */
+.rete-socket {
+  width: 16px !important;
+  height: 16px !important;
+  border: 2px solid white !important;
+  background: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.rete-socket:hover {
+  transform: scale(1.2) !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Socket type colors */
+.rete-socket[data-socket="price"] {
+  background: #F59E0B !important;
+  border-color: #FBBF24 !important;
+}
+
+.rete-socket[data-socket="number"] {
+  background: #3B82F6 !important;
+  border-color: #60A5FA !important;
+}
+
+.rete-socket[data-socket="boolean"] {
+  background: #10B981 !important;
+  border-color: #34D399 !important;
+}
+
+.rete-socket[data-socket="action"] {
+  background: #EF4444 !important;
+  border-color: #F87171 !important;
+}
+
+/* Control styling */
+.rete-control {
+  margin: 8px 16px !important;
+}
+
+.rete-control input, .rete-control select {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px !important;
+  color: white !important;
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.rete-control input:focus, .rete-control select:focus {
+  outline: none !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
+}
+
+.rete-control label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  margin-bottom: 4px !important;
+  display: block !important;
+}
+
+/* Connection styling */
+.rete-connection .rete-connection-path {
+  stroke-width: 3px !important;
+  stroke: #60A5FA !important;
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.4)) !important;
+}
+
+.rete-connection:hover .rete-connection-path {
+  stroke-width: 4px !important;
+  stroke: #3B82F6 !important;
+}
+
+/* Selected node styling */
+.rete-node.selected {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.6), 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Animation for new nodes */
+@keyframes nodeAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.rete-node {
+  animation: nodeAppear 0.3s ease-out !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rete-node {
+    min-width: 180px !important;
+  }
+  
+  .rete-node .title {
+    font-size: 13px !important;
+    padding: 10px 12px 6px !important;
+  }
+  
+  .rete-socket {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}

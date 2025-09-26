@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/Layout/AppLayout';
 import { Dashboard } from './pages/Dashboard';
 import { StrategyBuilder } from './pages/StrategyBuilder';
+import { StrategyPage } from './pages/StrategyPage';
 import { ActiveStrategies } from './pages/ActiveStrategies';
 import { Portfolio } from './pages/Portfolio';
 import { Exchanges } from './pages/Exchanges';
@@ -33,6 +34,9 @@ function App() {
           
           {/* Layout dedicato per Strategy Builder */}
           <Route path="strategy-builder" element={<StrategyBuilder />} />
+          
+          {/* Layout dedicato per Strategy (Rete.js) */}
+          <Route path="strategy" element={<StrategyPage />} />
       </Routes>
     </Router>
   );

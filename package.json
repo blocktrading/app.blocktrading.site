@@ -12,12 +12,18 @@
   "dependencies": {
     "@types/node": "^24.0.11",
     "@xyflow/react": "^12.8.1",
-    "react": "^19.1.0",
+    "react": "^19.1.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.1.1",
     "react-router-dom": "^7.6.3",
     "recharts": "^3.0.2",
+    "rete": "^2.0.6",
+    "rete-area-plugin": "^2.1.5",
+    "rete-connection-plugin": "^2.0.5",
+    "rete-minimap-plugin": "^2.0.3",
+    "rete-react-plugin": "^2.1.0",
+    "rete-render-utils": "^2.0.3",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
