@@ -1,8 +1,4 @@
-<p align="center" style="display: flex; align-items: center; background: linear-gradient(135deg, #14B8A6, #06B6D4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;font-size: 2rem;
-    font-weight: 800;"><a href="https://commerceclarity.io" target="_blank"><img src="https://blocktrading.site/wp-content/uploads/2025/06/Immagine-WhatsApp-2025-06-04-ore-10.26.07_ed041a3e-Photoroom.png" style="max-height:50px"></a>BlockTrading</p>
+<p align="center"><a href="https://commerceclarity.io" target="_blank"><img src="https://blocktrading.site/wp-content/uploads/2025/06/Immagine-WhatsApp-2025-06-04-ore-10.26.07_ed041a3e-Photoroom.png" width="30">BlockTrading</a></p>
 
 A comprehensive cryptocurrency trading strategy builder and management platform built with React and TypeScript.
 
